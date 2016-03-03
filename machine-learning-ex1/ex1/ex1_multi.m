@@ -82,16 +82,17 @@ X = [ones(m, 1) X];
 fprintf('Running gradient descent ...\n');
 
 % Choose some alpha value
-alpha = 0.01;
-num_iters = 400;
+alpha = 0.07;
+num_iters = 50;
 
 % Init Theta and Run Gradient Descent 
 theta = zeros(3, 1);
 [theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
 
 % Plot the convergence graph
-figure;
+
 plot(1:numel(J_history), J_history, '-b', 'LineWidth', 2);
+hold all;
 xlabel('Number of iterations');
 ylabel('Cost J');
 
@@ -100,11 +101,16 @@ fprintf('Theta computed from gradient descent: \n');
 fprintf(' %f \n', theta);
 fprintf('\n');
 
+
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
 % Recall that the first column of X is all-ones. Thus, it does
 % not need to be normalized.
-price = 0; % You should change this
+X_p = [1650 3];
+X_pn = (X_p - mu) ./ sigma;
+X_pn = [1 X_pn];
+
+price = theta' * X_pn';
 
 
 % ============================================================
